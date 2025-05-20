@@ -61,3 +61,4 @@ with st.form("prediction_form"):
 
         st.markdown(f"### ✅ Résultat : {'❌ Client à risque de churn' if prediction else '✔️ Client fidèle'}")
         st.markdown(f"### 🔢 Probabilité estimée de churn : **{prob*100:.2f}%**")
+
