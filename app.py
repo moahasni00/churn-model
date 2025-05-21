@@ -16,46 +16,29 @@ st.set_page_config(page_title="Churn - Fidélité Shell", layout="wide")
 # ─────────────────────────────
 col_logo1, col_title, col_logo2 = st.columns([1, 6, 1])
 with col_logo1:
-    st.image("Shell.png", width=90)
+    st.image("Shell.png", width=99)
 with col_title:
     st.markdown("<h1 style='text-align: center; color: #3bce6c; font-size: 42px;'>Application de Prédiction du Churn</h1>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center; color: #0f451f;'>Clients du Programme Fidélité Vivo Energy Maroc – Shell Licensee</h4>", unsafe_allow_html=True)
 with col_logo2:
-    st.image("Vivo.png", width=90)
+    st.image("Vivo.png", width=160)
 
 # ─────────────────────────────
-# ░▒▓█ INTRODUCTION ET GUIDE █▓▒░
+# ░▒▓█ INTRODUCTION █▓▒░
 # ─────────────────────────────
 st.markdown("""
 <div style='text-align: justify; font-size: 16px; line-height: 1.7;'>
-Bienvenue sur notre outil d'aide à la décision basé sur l’intelligence artificielle. Cette application vous permet de <b>prédire le risque de départ d’un client</b> à partir de son historique de fidélité chez Vivo Energy Shell Maroc.
+Bienvenue sur notre outil d'analyse prédictive du comportement client. Cette application vous permet d’<b>estimer le risque de départ d’un client</b> à partir de son historique de fidélité dans le cadre du programme Vivo Energy Maroc - Shell.
 <br><br>
 📦 <b>Données utilisées :</b><br>
 <i>Les données synthétiques peuvent être définies comme des informations annotées artificiellement. Elles sont générées par des algorithmes ou des simulations informatiques, et nous les utilisons ici pour éviter toute diffusion de données confidentielles, tout en conservant les mêmes variables, structures et échelles que les données réelles de l’entreprise.</i>
-<br><br>
-🔍 <b>Fonctionnalités proposées :</b>
-<ul>
-  <li>Visualisation de KPI's stratégiques</li>
-  <li>Choix et entraînement de modèles prédictifs</li>
-  <li>Évaluation automatique des performances</li>
-  <li>Simulation d’une prédiction client personnalisée</li>
-</ul>
 </div>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────
-# ░▒▓█ KPIs █▓▒░
+# ░▒▓█ CHARGEMENT DES DONNÉES █▓▒░
 # ─────────────────────────────
 df = load_and_prepare_data()
-kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-with kpi1:
-    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>📊 Clients analysés</h4><h2 style='color:white;'>{len(df)}</h2></div>", unsafe_allow_html=True)
-with kpi2:
-    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>💔 Taux de Churn</h4><h2 style='color:white;'>{round(df['Churned'].mean()*100, 2)}%</h2></div>", unsafe_allow_html=True)
-with kpi3:
-    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>⭐ Points moyens</h4><h2 style='color:white;'>{round(df['Total_Points'].mean(), 0)}</h2></div>", unsafe_allow_html=True)
-with kpi4:
-    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>🔁 Ratio de fidélité</h4><h2 style='color:white;'>{round(df['Loyalty_Ratio'].mean(), 2)}</h2></div>", unsafe_allow_html=True)
 
 # ─────────────────────────────
 # ░▒▓█ CHOIX DU MODÈLE █▓▒░
@@ -64,19 +47,39 @@ st.markdown("---")
 st.subheader("🔧 Choix du modèle d’apprentissage automatique")
 model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
 
-# ────────────────────────────────
-# ░▒▓█ CHARGEMENT DES DONNÉES █▓▒░
-# ────────────────────────────────
-df = load_and_prepare_data()
-
-# ────────────────────────────────
-# ░▒▓█ KPI RAPIDES █▓▒░
-# ────────────────────────────────
+# ─────────────────────────────
+# ░▒▓█ KPI + APERÇU DES DONNÉES █▓▒░
+# ─────────────────────────────
 if st.checkbox("📌 Aperçu des données & KPI"):
-    col1, col2, col3 = st.columns(3)
-    col1.metric("📋 Total clients", f"{len(df)}")
-    col2.metric("🔁 % Churn", f"{round(df['Churned'].mean()*100,2)}%")
-    col3.metric("⭐ Points moyens", f"{round(df['Total_Points'].mean(),0)}")
+    k1, k2, k3, k4 = st.columns(4)
+    with k1:
+        st.markdown(f"""
+        <div style='background-color:#3bce6c;padding:10px;border-radius:3px;
+                    border: 2px solid black; text-align:center;'>
+            <h6 style='color:white; margin-bottom: 5px;'>Clients analysés</h6>
+            <h4 style='color:white; margin: 0;'>{len(df)}</h4>
+        </div>""", unsafe_allow_html=True)
+    with k2:
+        st.markdown(f"""
+        <div style='background-color:#3bce6c;padding:10px;border-radius:3px;
+                    border: 2px solid black; text-align:center;'>
+            <h6 style='color:white; margin-bottom: 5px;'>Taux de churn</h6>
+            <h4 style='color:white; margin: 0;'>{round(df['Churned'].mean()*100, 2)}%</h4>
+        </div>""", unsafe_allow_html=True)
+    with k3:
+        st.markdown(f"""
+        <div style='background-color:#3bce6c;padding:10px;border-radius:3px;
+                    border: 2px solid black; text-align:center;'>
+            <h6 style='color:white; margin-bottom: 5px;'>Points moyens</h6>
+            <h4 style='color:white; margin: 0;'>{round(df['Total_Points'].mean(), 0)}</h4>
+        </div>""", unsafe_allow_html=True)
+    with k4:
+        st.markdown(f"""
+        <div style='background-color:#3bce6c;padding:10px;border-radius:3px;
+                    border: 2px solid black; text-align:center;'>
+            <h6 style='color:white; margin-bottom: 5px;'>Ratio fidélité</h6>
+            <h4 style='color:white; margin: 0;'>{round(df['Loyalty_Ratio'].mean(), 2)}</h4>
+        </div>""", unsafe_allow_html=True)
 
     st.subheader("📍 Premier aperçu des données")
     st.dataframe(df.head())
@@ -84,6 +87,17 @@ if st.checkbox("📌 Aperçu des données & KPI"):
 if st.checkbox("📈 Statistiques globales"):
     st.subheader("📊 Statistiques")
     st.dataframe(df.describe())
+
+# ─────────────────────────────
+# ░▒▓█ STYLE CURSEURS █▓▒░
+# ─────────────────────────────
+st.markdown("""
+<style>
+div[data-baseweb="slider"] > div {
+    background-color: #0f451f !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # ────────────────────────────────
