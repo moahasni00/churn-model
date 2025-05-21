@@ -35,11 +35,6 @@ Bienvenue sur notre outil d'analyse prédictive du comportement client. Cette ap
 # ────── DONNÉES ──────
 df = load_and_prepare_data()
 
-# ────── CHOIX DU MODÈLE ──────
-st.markdown("---")
-st.subheader("🔧 Choix du modèle d’apprentissage automatique")
-model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
-
 # ────── KPI & APERÇU ──────
 if st.checkbox("📌 Aperçu des données & KPI"):
     k1, k2, k3, k4 = st.columns(4)
@@ -53,6 +48,33 @@ if st.checkbox("📌 Aperçu des données & KPI"):
         st.markdown(f"<div style='background-color:#3bce6c;padding:6px 8px;border-radius:3px; border:2px solid black;text-align:center'><h6 style='color:white;'>Ratio fidélité</h6><h5 style='color:white;margin:0'>{round(df['Loyalty_Ratio'].mean(), 2)}</h5></div>", unsafe_allow_html=True)
     st.subheader("📍 Premier aperçu des données")
     st.dataframe(df.head())
+
+    
+# ────── ANALYSE EXPLORATOIRE ──────
+st.markdown("---")
+st.subheader("📊 Analyse exploratoire des variables")
+
+colv1, colv2 = st.columns(2)
+
+with colv1:
+    st.markdown("**Répartition du churn**")
+    fig, ax = plt.subplots(figsize=(4, 2))  # Adjust width & height
+    df['Churned'].value_counts().plot(kind='bar', color=['#0f451f', '#3bce6c'], ax=ax)
+    ax.set_xticklabels(['Fidèle', 'Churné'], rotation=0)
+    st.pyplot(fig)
+
+with colv2:
+    st.markdown("**Ratio de fidélité selon le statut**")
+    fig2, ax2 = plt.subplots(figsize=(4, 2))  # Reduce figure size
+    sns.boxplot(data=df, x="Churned", y="Loyalty_Ratio", palette=["#0f451f", "#3bce6c"], ax=ax2)
+    ax2.set_xticklabels(['Fidèle', 'Churné'])
+    st.pyplot(fig2)
+
+# ────── CHOIX DU MODÈLE ──────
+st.markdown("---")
+st.subheader("🔧 Choix du modèle d’apprentissage automatique")
+model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
+
 
 # ────── ENTRAÎNEMENT ──────
 if st.button("🎯 Entraîner le modèle ML"):
@@ -101,46 +123,6 @@ if st.button("🎯 Entraîner le modèle ML"):
 
     st.session_state["model"] = model
     st.session_state["scaler"] = scaler
-
-# ────── ANALYSE EXPLORATOIRE ──────
-st.markdown("---")
-st.subheader("📊 Analyse exploratoire des variables")
-
-colv1, colv2 = st.columns(2)
-
-with colv1:
-    st.markdown("**Répartition du churn**")
-    fig, ax = plt.subplots()
-    df['Churned'].value_counts().plot(kind='bar', color=['#0f451f', '#3bce6c'], ax=ax)
-    ax.set_xticklabels(['Fidèle', 'Churné'], rotation=0)
-    st.pyplot(fig)
-
-with colv2:
-    st.markdown("**Ratio de fidélité selon le statut**")
-    fig2, ax2 = plt.subplots()
-    sns.boxplot(data=df, x="Churned", y="Loyalty_Ratio", palette=["#0f451f", "#3bce6c"], ax=ax2)
-    ax2.set_xticklabels(['Fidèle', 'Churné'])
-    st.pyplot(fig2)
-
-st.markdown("**Distribution des points fidélité**")
-fig3, ax3 = plt.subplots()
-sns.histplot(df['Total_Points'], bins=30, color='#0f451f', ax=ax3)
-ax3.set_title("Histogramme des Points Totaux")
-ax3.set_xlabel("Points")
-st.pyplot(fig3)
-
-st.markdown("**Répartition du churn selon le type de carburant**")
-fig4, ax4 = plt.subplots()
-df.groupby("Fuel_Type")["Churned"].mean().plot(kind="bar", color="#3bce6c", ax=ax4)
-ax4.set_ylabel("Taux de churn")
-ax4.set_title("Type de carburant vs Taux de churn")
-st.pyplot(fig4)
-
-st.markdown("**Matrice de corrélation**")
-fig5, ax5 = plt.subplots(figsize=(8, 6))
-corr = df.drop(columns="Fuel_Type").corr()
-sns.heatmap(corr, annot=True, cmap="Greens", ax=ax5)
-st.pyplot(fig5)
 
 # ────── PRÉDICTION ──────
 st.subheader("🔮 Prédiction personnalisée")
