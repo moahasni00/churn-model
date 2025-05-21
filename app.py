@@ -35,6 +35,8 @@ Bienvenue sur notre outil d'analyse prédictive du comportement client. Cette ap
 # ────── DONNÉES ──────
 df = load_and_prepare_data()
 
+
+
 # ────── KPI & APERÇU ──────
 if st.checkbox("📌 Aperçu des données & KPI"):
     k1, k2, k3, k4 = st.columns(4)
