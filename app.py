@@ -20,7 +20,7 @@ with col_logo1:
 with col_title:
     st.title("📊 Application de Prédiction de Churn - Clients Fidélité Shell")
 with col_logo2:
-    st.image("Vivo.png", width=90)
+    st.image("Vivo.png", width=100)
 
 # ────────────────────────────────
 # ░▒▓█ CHARGEMENT DES DONNÉES █▓▒░
