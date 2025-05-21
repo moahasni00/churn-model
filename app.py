@@ -32,6 +32,7 @@ Bienvenue sur notre outil d'analyse prédictive du comportement client. Cette ap
 </div>
 """, unsafe_allow_html=True)
 
+
 # ────── DONNÉES ──────
 df = load_and_prepare_data()
 
