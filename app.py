@@ -9,56 +9,63 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, accuracy_score
 
-# Configuration de la page
 st.set_page_config(page_title="Churn - Fidélité Shell", layout="wide")
 
-# ───────────────────────────────
-# ░▒▓█ LOGOS + TITRE █▓▒░
-# ───────────────────────────────
-logo_col1, title_col, logo_col2 = st.columns([1, 6, 1])
-with logo_col1:
-    st.image("Shell.png", width=80)
-with title_col:
-    st.markdown("<h1 style='text-align: center; color: #004d99;'>🛠️ Application de Prédiction du Churn</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center; color: #444;'>Clients du programme Shell - Vivo Energy Maroc</h4>", unsafe_allow_html=True)
-with logo_col2:
-    st.image("Vivo.png", width=100)
+# ─────────────────────────────
+# ░▒▓█ EN-TÊTE VISUEL █▓▒░
+# ─────────────────────────────
+col_logo1, col_title, col_logo2 = st.columns([1, 6, 1])
+with col_logo1:
+    st.image("Shell.png", width=90)
+with col_title:
+    st.markdown("<h1 style='text-align: center; color: #3bce6c; font-size: 42px;'>Application de Prédiction du Churn</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: #0f451f;'>Clients du Programme Fidélité Vivo Energy Maroc – Shell Licensee</h4>", unsafe_allow_html=True)
+with col_logo2:
+    st.image("Vivo.png", width=90)
 
-# ───────────────────────────────
+# ─────────────────────────────
 # ░▒▓█ INTRODUCTION ET GUIDE █▓▒░
-# ───────────────────────────────
+# ─────────────────────────────
 st.markdown("""
-<div style='text-align: justify; font-size: 16px; line-height: 1.6;'>
-Bienvenue sur notre outil d'aide à la décision prédictive. Cette application permet d'explorer le comportement des clients d’un programme de fidélité Shell/Vivo Energy et de prédire la probabilité qu’un client abandonne ou reste actif.
+<div style='text-align: justify; font-size: 16px; line-height: 1.7;'>
+Bienvenue sur notre outil d'aide à la décision basé sur l’intelligence artificielle. Cette application vous permet de <b>prédire le risque de départ d’un client</b> à partir de son historique de fidélité chez Vivo Energy Shell Maroc.
 <br><br>
-
-💡 <b>Les données utilisées sont synthétiques</b> : 
-<i>Les données synthétiques peuvent être définies comme des informations annotées artificiellement. Elles sont générées par des algorithmes ou des simulations informatiques, et nous les utilisons ici pour éviter toute diffusion de données confidentielles de la société Vivo Energy Maroc – Shell Licensee, tout en respectant la structure réelle des variables.</i>
+📦 <b>Données utilisées :</b><br>
+<i>Les données synthétiques peuvent être définies comme des informations annotées artificiellement. Elles sont générées par des algorithmes ou des simulations informatiques, et nous les utilisons ici pour éviter toute diffusion de données confidentielles, tout en conservant les mêmes variables, structures et échelles que les données réelles de l’entreprise.</i>
 <br><br>
-
-🔍 <b>Ce que vous pouvez faire :</b>
+🔍 <b>Fonctionnalités proposées :</b>
 <ul>
-  <li>Explorer les indicateurs et statistiques générales</li>
-  <li>Choisir un modèle de Machine Learning à tester</li>
-  <li>Entraîner ce modèle et évaluer ses performances</li>
-  <li>Simuler une prédiction personnalisée (profil client)</li>
-</ul>
-
-📦 <b>Modèles disponibles :</b>
-<ul>
-  <li><b>Random Forest :</b> robuste, performant sur les grandes bases</li>
-  <li><b>Régression Logistique :</b> simple, idéal pour analyser les facteurs explicatifs</li>
-  <li><b>KNN :</b> intuitif, basé sur les clients similaires</li>
+  <li>Visualisation de KPI's stratégiques</li>
+  <li>Choix et entraînement de modèles prédictifs</li>
+  <li>Évaluation automatique des performances</li>
+  <li>Simulation d’une prédiction client personnalisée</li>
 </ul>
 </div>
 """, unsafe_allow_html=True)
 
-# ───────────────────────────────
-# ░▒▓█ CHOIX DU MODÈLE (DANS PAGE) █▓▒░
-# ───────────────────────────────
+# ─────────────────────────────
+# ░▒▓█ KPIs █▓▒░
+# ─────────────────────────────
+df = load_and_prepare_data()
+kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+with kpi1:
+    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>📊 Clients analysés</h4><h2 style='color:white;'>{len(df)}</h2></div>", unsafe_allow_html=True)
+with kpi2:
+    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>💔 Taux de Churn</h4><h2 style='color:white;'>{round(df['Churned'].mean()*100, 2)}%</h2></div>", unsafe_allow_html=True)
+with kpi3:
+    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>⭐ Points moyens</h4><h2 style='color:white;'>{round(df['Total_Points'].mean(), 0)}</h2></div>", unsafe_allow_html=True)
+with kpi4:
+    st.markdown(f"<div style='background-color:#3bce6c;padding:20px;border-radius:10px;text-align:center'><h4 style='color:white;'>🔁 Ratio de fidélité</h4><h2 style='color:white;'>{round(df['Loyalty_Ratio'].mean(), 2)}</h2></div>", unsafe_allow_html=True)
+
+# ─────────────────────────────
+# ░▒▓█ CHOIX DU MODÈLE █▓▒░
+# ─────────────────────────────
 st.markdown("---")
 st.subheader("🔧 Choix du modèle d’apprentissage automatique")
-model_choice = st.selectbox("Sélectionnez un modèle pour l'entraînement :", ["Random Forest", "Logistic Regression", "KNN"])
+model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
+
+# (Reprendre ensuite ton code : entraînement, prédiction, visualisations...)
+
 
 # ────────────────────────────────
 # ░▒▓█ CHARGEMENT DES DONNÉES █▓▒░
@@ -81,14 +88,6 @@ if st.checkbox("📈 Statistiques globales"):
     st.subheader("📊 Statistiques")
     st.dataframe(df.describe())
 
-# ────────────────────────────────
-# ░▒▓█ CHOIX DU MODÈLE █▓▒░
-# ────────────────────────────────
-st.sidebar.header("🔧 Choix du Modèle ML")
-model_choice = st.sidebar.selectbox("Modèle", ["Random Forest", "Logistic Regression", "KNN"])
-
-model = None
-scaler = None
 
 # ────────────────────────────────
 # ░▒▓█ ENTRAÎNEMENT █▓▒░
