@@ -42,6 +42,7 @@ st.markdown("---")
 st.subheader("🔧 Choix du modèle d’apprentissage automatique")
 model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
 
+
 # ────── KPI & APERÇU ──────
 if st.checkbox("📌 Aperçu des données & KPI"):
     k1, k2, k3, k4 = st.columns(4)
