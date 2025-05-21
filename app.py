@@ -49,27 +49,6 @@ if st.checkbox("📌 Aperçu des données & KPI"):
     st.subheader("📍 Premier aperçu des données")
     st.dataframe(df.head())
 
-    
-# ────── ANALYSE EXPLORATOIRE ──────
-st.markdown("---")
-st.subheader("📊 Analyse exploratoire des variables")
-
-colv1, colv2 = st.columns(2)
-
-with colv1:
-    st.markdown("**Répartition du churn**")
-    fig, ax = plt.subplots(figsize=(4, 2))  # Adjust width & height
-    df['Churned'].value_counts().plot(kind='bar', color=['#0f451f', '#3bce6c'], ax=ax)
-    ax.set_xticklabels(['Fidèle', 'Churné'], rotation=0)
-    st.pyplot(fig)
-
-with colv2:
-    st.markdown("**Ratio de fidélité selon le statut**")
-    fig2, ax2 = plt.subplots(figsize=(4, 2))  # Reduce figure size
-    sns.boxplot(data=df, x="Churned", y="Loyalty_Ratio", palette=["#0f451f", "#3bce6c"], ax=ax2)
-    ax2.set_xticklabels(['Fidèle', 'Churné'])
-    st.pyplot(fig2)
-
 # ────── CHOIX DU MODÈLE ──────
 st.markdown("---")
 st.subheader("🔧 Choix du modèle d’apprentissage automatique")
