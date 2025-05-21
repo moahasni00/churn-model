@@ -371,3 +371,4 @@ st.markdown("""
 <div style='text-align: center; font-size: 16px; padding: 15px; background-color: #f8f9fa; border-radius: 12px;'>
     <i>Réalisée par : <b>Oumaima Zaz</b> - Université Hassan I – Master en Marketing et action commerciale</i>
 </div>""", unsafe_allow_html=True)
+
