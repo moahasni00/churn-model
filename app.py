@@ -36,25 +36,27 @@ Bienvenue sur notre outil d'analyse prédictive du comportement client. Cette ap
 df = load_and_prepare_data()
 
 
-
-# ────── KPI & APERÇU ──────
-if st.checkbox("📌 Aperçu des données & KPI"):
-    k1, k2, k3, k4 = st.columns(4)
-    with k1:
-        st.markdown(f"<div style='background-color:#3bce6c;padding:6px 8px;border-radius:3px; border:2px solid black;text-align:center'><h6 style='color:white;'>Clients analysés</h6><h5 style='color:white;margin:0'>{len(df)}</h5></div>", unsafe_allow_html=True)
-    with k2:
-        st.markdown(f"<div style='background-color:#3bce6c;padding:6px 8px;border-radius:3px; border:2px solid black;text-align:center'><h6 style='color:white;'>Taux de churn</h6><h5 style='color:white;margin:0'>{round(df['Churned'].mean()*100, 2)}%</h5></div>", unsafe_allow_html=True)
-    with k3:
-        st.markdown(f"<div style='background-color:#3bce6c;padding:6px 8px;border-radius:3px; border:2px solid black;text-align:center'><h6 style='color:white;'>Points moyens</h6><h5 style='color:white;margin:0'>{round(df['Total_Points'].mean(), 0)}</h5></div>", unsafe_allow_html=True)
-    with k4:
-        st.markdown(f"<div style='background-color:#3bce6c;padding:6px 8px;border-radius:3px; border:2px solid black;text-align:center'><h6 style='color:white;'>Ratio fidélité</h6><h5 style='color:white;margin:0'>{round(df['Loyalty_Ratio'].mean(), 2)}</h5></div>", unsafe_allow_html=True)
-    st.subheader("📍 Premier aperçu des données")
-    st.dataframe(df.head())
-
 # ────── CHOIX DU MODÈLE ──────
 st.markdown("---")
 st.subheader("🔧 Choix du modèle d’apprentissage automatique")
 model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
+
+# ────── KPI & APERÇU ──────
+if st.checkbox("📌 Aperçu des données & KPI"):
+    k1, k2, k3, k4 = st.columns(4)
+    style_box = "background-color:#3bce6c;padding:6px 8px;border-radius:12px; border:3px solid black;text-align:center"
+    
+    with k1:
+        st.markdown(f"<div style='{style_box}'><h6 style='color:white;'>Clients analysés</h6><h5 style='color:white;margin:0'>{len(df)}</h5></div>", unsafe_allow_html=True)
+    with k2:
+        st.markdown(f"<div style='{style_box}'><h6 style='color:white;'>Taux de churn</h6><h5 style='color:white;margin:0'>{round(df['Churned'].mean()*100, 2)}%</h5></div>", unsafe_allow_html=True)
+    with k3:
+        st.markdown(f"<div style='{style_box}'><h6 style='color:white;'>Points moyens</h6><h5 style='color:white;margin:0'>{round(df['Total_Points'].mean(), 0)}</h5></div>", unsafe_allow_html=True)
+    with k4:
+        st.markdown(f"<div style='{style_box}'><h6 style='color:white;'>Ratio fidélité</h6><h5 style='color:white;margin:0'>{round(df['Loyalty_Ratio'].mean(), 2)}</h5></div>", unsafe_allow_html=True)
+    
+    st.subheader("📍 Premier aperçu des données")
+    st.dataframe(df.head())
 
 
 # ────── ENTRAÎNEMENT ──────
