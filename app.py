@@ -16,7 +16,7 @@ st.set_page_config(page_title="Churn - Fidélité Shell", layout="wide")
 # ────── EN-TÊTE ──────
 col_logo1, col_title, col_logo2 = st.columns([1, 6, 1])
 with col_logo1:
-    st.image("Shell.png", width=85)
+    st.image("Shell.png", width=95)
 with col_title:
     st.markdown("<h1 style='text-align: center; color: #3bce6c; font-size: 42px;'>Application de Prédiction du Churn</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: #0f451f; font-size: 24px;'>Clients du Programme Fidélité Vivo Energy Maroc – Shell Licensee</h3>", unsafe_allow_html=True)
