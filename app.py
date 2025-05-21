@@ -9,18 +9,56 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, accuracy_score
 
+# Configuration de la page
 st.set_page_config(page_title="Churn - Fidélité Shell", layout="wide")
 
-# ────────────────────────────────
-# ░▒▓█ LOGOS DANS L’EN-TÊTE █▓▒░
-# ────────────────────────────────
-col_logo1, col_title, col_logo2 = st.columns([1, 6, 1])
-with col_logo1:
-    st.image("Shell.png", width=90)
-with col_title:
-    st.title("📊 Application de Prédiction de Churn - Clients Fidélité Shell")
-with col_logo2:
-    st.image("Vivo.png", width=160)
+# ───────────────────────────────
+# ░▒▓█ LOGOS + TITRE █▓▒░
+# ───────────────────────────────
+logo_col1, title_col, logo_col2 = st.columns([1, 6, 1])
+with logo_col1:
+    st.image("Shell.png", width=80)
+with title_col:
+    st.markdown("<h1 style='text-align: center; color: #004d99;'>🛠️ Application de Prédiction du Churn</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: #444;'>Clients du programme Shell - Vivo Energy Maroc</h4>", unsafe_allow_html=True)
+with logo_col2:
+    st.image("Vivo.png", width=100)
+
+# ───────────────────────────────
+# ░▒▓█ INTRODUCTION ET GUIDE █▓▒░
+# ───────────────────────────────
+st.markdown("""
+<div style='text-align: justify; font-size: 16px; line-height: 1.6;'>
+Bienvenue sur notre outil d'aide à la décision prédictive. Cette application permet d'explorer le comportement des clients d’un programme de fidélité Shell/Vivo Energy et de prédire la probabilité qu’un client abandonne ou reste actif.
+<br><br>
+
+💡 <b>Les données utilisées sont synthétiques</b> : 
+<i>Les données synthétiques peuvent être définies comme des informations annotées artificiellement. Elles sont générées par des algorithmes ou des simulations informatiques, et nous les utilisons ici pour éviter toute diffusion de données confidentielles de la société Vivo Energy Maroc – Shell Licensee, tout en respectant la structure réelle des variables.</i>
+<br><br>
+
+🔍 <b>Ce que vous pouvez faire :</b>
+<ul>
+  <li>Explorer les indicateurs et statistiques générales</li>
+  <li>Choisir un modèle de Machine Learning à tester</li>
+  <li>Entraîner ce modèle et évaluer ses performances</li>
+  <li>Simuler une prédiction personnalisée (profil client)</li>
+</ul>
+
+📦 <b>Modèles disponibles :</b>
+<ul>
+  <li><b>Random Forest :</b> robuste, performant sur les grandes bases</li>
+  <li><b>Régression Logistique :</b> simple, idéal pour analyser les facteurs explicatifs</li>
+  <li><b>KNN :</b> intuitif, basé sur les clients similaires</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
+
+# ───────────────────────────────
+# ░▒▓█ CHOIX DU MODÈLE (DANS PAGE) █▓▒░
+# ───────────────────────────────
+st.markdown("---")
+st.subheader("🔧 Choix du modèle d’apprentissage automatique")
+model_choice = st.selectbox("Sélectionnez un modèle pour l'entraînement :", ["Random Forest", "Logistic Regression", "KNN"])
 
 # ────────────────────────────────
 # ░▒▓█ CHARGEMENT DES DONNÉES █▓▒░
