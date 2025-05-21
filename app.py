@@ -369,6 +369,6 @@ h3 {
 st.markdown("""
 <div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 30px 0 15px 0;'></div>
 <div style='text-align: center; font-size: 16px; padding: 15px; background-color: #f8f9fa; border-radius: 12px;'>
-    <i>Réalisée par : <b>Oumaima Zaz</b> - Université Hassan I – Master en Marketing et action commerciale</i>
+    <i><b>Oumaima Zaz</b> - Université Hassan I – Master en Marketing et action commerciale</i>
 </div>""", unsafe_allow_html=True)
 
