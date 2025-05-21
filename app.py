@@ -19,7 +19,7 @@ with col_logo1:
     st.image("Shell.png", width=85)
 with col_title:
     st.markdown("<h1 style='text-align: center; color: #3bce6c; font-size: 42px;'>Application de Prédiction du Churn</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center; color: #0f451f;'>Clients du Programme Fidélité Vivo Energy Maroc – Shell Licensee</h4>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #0f451f; font-size: 24px;'>Clients du Programme Fidélité Vivo Energy Maroc – Shell Licensee</h3>", unsafe_allow_html=True)
 with col_logo2:
     st.image("Vivo.png", width=110)
 
@@ -41,14 +41,18 @@ with st.expander("ℹ️ À propos des données"):
 
 # ────── SÉPARATEUR VISUEL ──────
 st.markdown("""
-<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 25px 0;'></div>
+<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 25px 0 15px 0;'></div>
 """, unsafe_allow_html=True)
 
 # ────── DONNÉES ──────
 df = load_and_prepare_data()
 
 # ────── KPI & APERÇU ──────
-st.subheader("📊 Tableau de bord")
+st.markdown("""
+<div style="margin-top: 30px;">
+    <h3 style="color: #0f451f; font-size: 22px;">📊 Tableau de bord</h3>
+</div>
+""", unsafe_allow_html=True)
 
 # CSS pour les cartes KPI
 st.markdown("""
@@ -69,13 +73,13 @@ st.markdown("""
 }
 .kpi-title {
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
 }
 .kpi-value {
     color: white;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     margin: 0;
 }
@@ -89,55 +93,54 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Affichage des KPIs
-k1, k2, k3, k4 = st.columns(4)
+# ────── KPI & APERÇU SECTION ──────
+# Utilisation d'un expander ou checkbox personnalisé pour l'aperçu des données et KPI
+show_kpi = st.checkbox("📌 Aperçu des données & KPI", value=True)
 
-with k1:
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-title">Clients analysés</div>
-        <div class="kpi-value">{len(df)}</div>
-    </div>
-    """, unsafe_allow_html=True)
-with k2:
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-title">Taux de churn</div>
-        <div class="kpi-value">{round(df['Churned'].mean()*100, 2)}%</div>
-    </div>
-    """, unsafe_allow_html=True)
-with k3:
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-title">Points moyens</div>
-        <div class="kpi-value">{round(df['Total_Points'].mean(), 0)}</div>
-    </div>
-    """, unsafe_allow_html=True)
-with k4:
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-title">Ratio fidélité</div>
-        <div class="kpi-value">{round(df['Loyalty_Ratio'].mean(), 2)}</div>
-    </div>
-    """, unsafe_allow_html=True)
+if show_kpi:
+    # Affichage des KPIs
+    st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+    k1, k2, k3, k4 = st.columns(4)
 
-# Aperçu des données dans une section distincte
-st.markdown("<br>", unsafe_allow_html=True)
-with st.container():
-    st.markdown("""
-    <div class="section-container">
-        <h3 style="color: #0f451f; margin-bottom: 15px;">📍 Premier aperçu des données</h3>
-    """, unsafe_allow_html=True)
-    
+    with k1:
+        st.markdown(f"""
+        <div class="kpi-card">
+            <div class="kpi-title">Clients analysés</div>
+            <div class="kpi-value">{len(df)}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with k2:
+        st.markdown(f"""
+        <div class="kpi-card">
+            <div class="kpi-title">Taux de churn</div>
+            <div class="kpi-value">{round(df['Churned'].mean()*100, 2)}%</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with k3:
+        st.markdown(f"""
+        <div class="kpi-card">
+            <div class="kpi-title">Points moyens</div>
+            <div class="kpi-value">{round(df['Total_Points'].mean(), 0)}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with k4:
+        st.markdown(f"""
+        <div class="kpi-card">
+            <div class="kpi-title">Ratio fidélité</div>
+            <div class="kpi-value">{round(df['Loyalty_Ratio'].mean(), 2)}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Premier aperçu des données
+    st.markdown("<div style='margin-top: 25px;'></div>", unsafe_allow_html=True)
+    st.markdown("<span class='apercu-label'>📍 Premier aperçu des données</span>", unsafe_allow_html=True)
     st.dataframe(df.head(), use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
 
 # ────── CHOIX DU MODÈLE ──────
 st.markdown("""
-<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 25px 0;'></div>
+<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 30px 0 15px 0;'></div>
+<h3 style="color: #0f451f; font-size: 22px; margin-bottom: 15px;">🔧 Choix du modèle d'apprentissage automatique</h3>
 """, unsafe_allow_html=True)
-
-st.subheader("🔧 Choix du modèle d'apprentissage automatique")
 model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
 
 # ────── ENTRAÎNEMENT ──────
@@ -169,7 +172,7 @@ if train_btn:
     # Affichage des résultats dans un conteneur avec style
     st.markdown("""
     <div class="section-container">
-        <h3 style="color: #0f451f; margin-bottom: 15px;">📊 Résultats du modèle</h3>
+        <h3 style="color: #0f451f; font-size: 22px; margin-bottom: 15px;">📊 Résultats du modèle</h3>
     """, unsafe_allow_html=True)
     
     st.success("✅ Modèle entraîné avec succès")
@@ -212,8 +215,8 @@ if train_btn:
 
 # ────── PRÉDICTION ──────
 st.markdown("""
-<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 25px 0;'></div>
-<h3 style='color: #0f451f; margin-bottom: 15px;'>🔮 Prédiction personnalisée</h3>
+<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 30px 0 15px 0;'></div>
+<h3 style='color: #0f451f; font-size: 22px; margin-bottom: 15px;'>🔮 Prédiction personnalisée</h3>
 """, unsafe_allow_html=True)
 
 with st.form("form_predict"):
@@ -339,13 +342,32 @@ h3 {
     border-bottom: 2px solid #3bce6c;
     padding-bottom: 8px;
     margin-bottom: 20px !important;
+    font-size: 22px !important;
+}
+
+/* Premier aperçu étiquette */
+.apercu-label {
+    font-size: 22px !important;
+    color: #0f451f !important;
+    margin-top: 20px !important;
+    margin-bottom: 15px !important;
+    display: inline-block !important;
+    border-bottom: 2px solid #3bce6c;
+    padding-bottom: 8px;
+}
+
+/* Style pour le checkbox d'aperçu */
+.stCheckbox label {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #0f451f !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # ────── WATERMARK ──────
 st.markdown("""
-<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 25px 0;'></div>
-<div style='text-align: center; font-size: 14px; padding: 15px; background-color: #f8f9fa; border-radius: 12px;'>
+<div style='height: 3px; background: linear-gradient(90deg, #3bce6c, #0f451f); margin: 30px 0 15px 0;'></div>
+<div style='text-align: center; font-size: 16px; padding: 15px; background-color: #f8f9fa; border-radius: 12px;'>
     <i>Réalisée par : <b>Oumaima Zaz</b> - Université Hassan I – Master en Marketing et action commerciale</i>
 </div>""", unsafe_allow_html=True)
