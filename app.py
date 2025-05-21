@@ -64,9 +64,6 @@ st.markdown("---")
 st.subheader("🔧 Choix du modèle d’apprentissage automatique")
 model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Logistic Regression", "KNN"])
 
-# (Reprendre ensuite ton code : entraînement, prédiction, visualisations...)
-
-
 # ────────────────────────────────
 # ░▒▓█ CHARGEMENT DES DONNÉES █▓▒░
 # ────────────────────────────────
@@ -190,4 +187,5 @@ st.markdown("""<hr style="border: 1px solid #ddd;">
 <div style='text-align: center; font-size: 14px;'>
     <i>Réalisée par : <b>Oumaima Zaz</b> - Université Hassan I – Master en Marketing et action commerciale</i>
 </div>""", unsafe_allow_html=True)
+
 
