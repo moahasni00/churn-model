@@ -10,7 +10,16 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, accuracy_score
 
-st.set_page_config(page_title="Churn - Fidélité Shell", layout="wide")
+st.set_page_config(
+    page_title="Churn - Fidélité Shell",
+    layout="wide",
+    menu_items={
+        'Get Help': None,
+        'Report a bug': None,
+        'About': None
+    }
+)
+
 
 # ────── EN-TÊTE ──────
 col_logo1, col_title, col_logo2 = st.columns([1, 6, 1])
@@ -44,6 +53,7 @@ model_choice = st.selectbox("Sélectionnez un modèle :", ["Random Forest", "Log
 
 
 # ────── KPI & APERÇU ──────
+st.markdown("<br>", unsafe_allow_html=True)  # ➕ Ajoute cette ligne pour espacer
 if st.checkbox("📌 Aperçu des données & KPI"):
     k1, k2, k3, k4 = st.columns(4)
     style_box = "background-color:#3bce6c;padding:6px 8px;border-radius:12px; border:3px solid black;text-align:center"
